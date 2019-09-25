@@ -77,13 +77,13 @@ function validateCollaborator(collaborator) {
   const schema = {
     name: Joi.string()
       .min(5)
-      .max(50)
+      .max(250)
       .required(),
     statusId: Joi.objectId().required(),
     birthday: Joi.string(),
     address: Joi.string()
       .min(5)
-      .max(100)
+      .max(250)
       .required(),
     reference: Joi.string().allow(""),
     neighborhood: Joi.string(),
@@ -97,7 +97,7 @@ function validateCollaborator(collaborator) {
     religion: Joi.string().allow(""),
     collaborationDay: Joi.string().required(),
     value: Joi.string()
-      .max(10)
+      .max(20)
       .required(),
     purpose: Joi.string().allow("")
   };
