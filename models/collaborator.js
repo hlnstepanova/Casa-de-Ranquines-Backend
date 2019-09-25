@@ -85,7 +85,7 @@ function validateCollaborator(collaborator) {
       .min(5)
       .max(100)
       .required(),
-    reference: Joi.string(),
+    reference: Joi.string().allow(""),
     neighborhood: Joi.string(),
     city: Joi.string(),
     state: Joi.string(),
