@@ -1,3 +1,4 @@
 {
-  "jwtPrivateKey": "ranquines_privateKey"
+  "jwtPrivateKey": "ranquines_privateKey",
+  "db": "casa_de_ranquines_db"
 }
