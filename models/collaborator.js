@@ -10,7 +10,7 @@ const collaboratorSchema = new mongoose.Schema({
     maxlength: 255
   },
   status: { type: statusSchema, required: true },
-  birthday: { type: Date },
+  birthday: { type: String },
   address: {
     type: String,
     trim: true,
@@ -80,14 +80,26 @@ function validateCollaborator(collaborator) {
       .max(50)
       .required(),
     statusId: Joi.objectId().required(),
+    birthday: Joi.string(),
     address: Joi.string()
       .min(5)
       .max(100)
       .required(),
-    collaborationDay: Joi.date().required(),
+    reference: Joi.string(),
+    neighborhood: Joi.string(),
+    city: Joi.string(),
+    state: Joi.string(),
+    phone: Joi.string().allow(""),
+    mobile: Joi.string().allow(""),
+    workphone: Joi.string().allow(""),
+    email: Joi.string().allow(""),
+    childrenId: Joi.objectId(),
+    religion: Joi.string().allow(""),
+    collaborationDay: Joi.string().required(),
     value: Joi.string()
       .max(10)
-      .required()
+      .required(),
+    purpose: Joi.string().allow("")
   };
 
   return Joi.validate(collaborator, schema);

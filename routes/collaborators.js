@@ -1,5 +1,6 @@
 const { Collaborator, validate } = require("../models/collaborator");
 const { Status } = require("../models/status");
+const { Answer } = require("../models/answer");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const validateObjectId = require("../middleware/validateObjectId");
@@ -22,18 +23,37 @@ router.post("/", [auth, admin], async (req, res) => {
   const status = await Status.findById(req.body.statusId);
   if (!status) return res.status(400).send("Invalid status.");
 
+  const answer = await Answer.findById(req.body.childrenId);
+  if (!answer) return res.status(400).send("Invalid answer to children.");
+
   const collaborator = new Collaborator({
     name: req.body.name,
     status: {
       _id: status._id,
       name: status.name
     },
+    status: {
+      _id: status._id,
+      name: status.name
+    },
+    birthday: req.body.birthday,
     address: req.body.address,
+    reference: req.body.reference,
     neighborhood: req.body.neighborhood,
     city: req.body.city,
     state: req.body.state,
+    phone: req.body.phone,
+    mobile: req.body.mobile,
+    workphone: req.body.workphone,
+    email: req.body.email,
+    children: {
+      _id: answer._id,
+      name: answer.name
+    },
+    religion: req.body.religion,
     collaborationDay: req.body.collaborationDay,
-    value: req.body.value
+    value: req.body.value,
+    purpose: req.body.purpose
   });
   await collaborator.save();
 
@@ -47,6 +67,9 @@ router.put("/:id", [auth, admin], async (req, res) => {
   const status = await Status.findById(req.body.statusId);
   if (!status) return res.status(400).send("Invalid status.");
 
+  const answer = await Answer.findById(req.body.childrenId);
+  if (!answer) return res.status(400).send("Invalid answer to children.");
+
   const collaborator = await Collaborator.findByIdAndUpdate(
     req.params.id,
     {
@@ -55,12 +78,24 @@ router.put("/:id", [auth, admin], async (req, res) => {
         _id: status._id,
         name: status.name
       },
+      birthday: req.body.birthday,
       address: req.body.address,
+      reference: req.body.reference,
       neighborhood: req.body.neighborhood,
       city: req.body.city,
       state: req.body.state,
+      phone: req.body.phone,
+      mobile: req.body.mobile,
+      workphone: req.body.workphone,
+      email: req.body.email,
+      children: {
+        _id: answer._id,
+        name: answer.name
+      },
+      religion: req.body.religion,
       collaborationDay: req.body.collaborationDay,
-      value: req.body.value
+      value: req.body.value,
+      purpose: req.body.purpose
     },
     { new: true }
   );
