@@ -1,15 +1,14 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const answerScheme = new mongoose.Schema({
+const answerSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     trim: true
   }
 });
 
-const Answer = mongoose.model("Answers", answerScheme);
+const Answer = mongoose.model("Answers", answerSchema);
 
 function validateAnswer(answer) {
   const schema = {
@@ -21,5 +20,6 @@ function validateAnswer(answer) {
   return Joi.validate(answer, schema);
 }
 
+exports.answerSchema = answerSchema;
 exports.Answer = Answer;
 exports.validate = validateAnswer;

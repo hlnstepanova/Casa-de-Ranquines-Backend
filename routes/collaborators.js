@@ -15,11 +15,11 @@ router.get("/", async (req, res) => {
   res.send(collaborators);
 });
 
-router.post("/", [auth], async (req, res) => {
+router.post("/", [auth, admin], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const status = await Status.findById(req.body.genreId);
+  const status = await Status.findById(req.body.statusId);
   if (!status) return res.status(400).send("Invalid status.");
 
   const collaborator = new Collaborator({
@@ -33,19 +33,19 @@ router.post("/", [auth], async (req, res) => {
     city: req.body.city,
     state: req.body.state,
     collaborationDay: req.body.collaborationDay,
-    address: req.body.value
+    value: req.body.value
   });
   await collaborator.save();
 
   res.send(collaborator);
 });
 
-router.put("/:id", [auth], async (req, res) => {
+router.put("/:id", [auth, admin], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = await Genre.findById(req.body.genreId);
-  if (!genre) return res.status(400).send("Invalid status.");
+  const status = await Status.findById(req.body.statusId);
+  if (!status) return res.status(400).send("Invalid status.");
 
   const collaborator = await Collaborator.findByIdAndUpdate(
     req.params.id,
@@ -60,7 +60,7 @@ router.put("/:id", [auth], async (req, res) => {
       city: req.body.city,
       state: req.body.state,
       collaborationDay: req.body.collaborationDay,
-      address: req.body.value
+      value: req.body.value
     },
     { new: true }
   );

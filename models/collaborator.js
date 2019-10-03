@@ -1,96 +1,77 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const { statusScheme } = require("./status");
-const { answerScheme } = require("./answer");
+const { statusSchema } = require("./status");
+const { answerSchema } = require("./answer");
 
-const collaboratorScheme = new mongoose.Schema({
+const collaboratorSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
-  status: { type: statusScheme, required: true },
+  status: { type: statusSchema, required: true },
   birthday: { type: Date },
   address: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   reference: {
     type: String,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   neighborhood: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   city: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   state: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   phone: {
     type: String,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
-  mobile: { type: String, trim: true, minlength: 5, maxlength: 255 },
+  mobile: { type: String, trim: true, maxlength: 255 },
   workphone: {
     type: String,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   email: {
     type: String,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
-  children: { type: answerScheme },
+  children: { type: answerSchema },
   religion: {
     type: String,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   collaborationDay: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
   value: {
     type: String,
-    required: true,
     trim: true,
-    minlength: 5,
     maxlength: 255
   },
-  purpose: { type: String, trim: true, minlength: 5, maxlength: 255 }
+  purpose: { type: String, trim: true, maxlength: 1000 }
 });
 
-const Collaborator = mongoose.model("Collaborators", collaboratorScheme);
+const Collaborator = mongoose.model("Collaborators", collaboratorSchema);
 
 function validateCollaborator(collaborator) {
   const schema = {

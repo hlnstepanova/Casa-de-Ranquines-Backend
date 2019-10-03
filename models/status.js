@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const statusScheme = new mongoose.Schema({
+const statusSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const statusScheme = new mongoose.Schema({
   }
 });
 
-const Status = mongoose.model("Statuses", statusScheme);
+const Status = mongoose.model("Statuses", statusSchema);
 
 function validateStatus(status) {
   const schema = {
@@ -23,5 +23,6 @@ function validateStatus(status) {
   return Joi.validate(status, schema);
 }
 
+exports.statusSchema = statusSchema;
 exports.Status = Status;
 exports.validate = validateStatus;
